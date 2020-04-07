@@ -73,7 +73,7 @@
 			<span>2.只能获取直播间直链，不能用于投稿视频</span>
 			<br>
 			<span>3.b站视频解析可用 https://www.parsevideo.net </span>
-			<span>4.<a href="#" target="_blank">源码</a>）</span>
+			<span>4.<a href="https://github.com/Cloudiver/bilibili_live" target="_blank">源码</a>）</span>
 			
         </div>
         <h3>请在下方输入房间号</h3>
