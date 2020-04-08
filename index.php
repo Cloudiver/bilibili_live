@@ -111,6 +111,7 @@
 			/* echo $room_id; */
 			echo "<script>document.getElementById('room_id').value = $room_id </script>";
 			
+			/* 获取的地址有效期一个小时 */
 			if($room_id != "" && $quality == "10000" || $quality == "150"){
 				preg_match('/\d+/', $room_id, $matches);
 				if (count($matches)){
