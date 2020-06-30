@@ -82,8 +82,7 @@
 				<input type="text" id='room_id' name="room_id" pattern="\d*" title="只能输入数字" placeholder="请输入房间号" maxlength="25" value="" required>
 				<label>清晰度：</label>
 				<input type="radio" name="quality" value="10000" checked>原画
-				<input type="radio" name="quality" value="150">高清
-				<input type="checkbox" name="sina" value="1">短链	
+				<input type="radio" name="quality" value="150">高清	
 				<br>
 				<br>
 				<button id="submit">获取</button>
@@ -125,13 +124,8 @@
 						$live_urls = $live_info['data']['durl'];
 						$durl_length = count($live_urls);
 						for($i=0; $i<$durl_length; $i++){
-							if (isset($sina) && $sina === "1"){
-								echo get_turl($live_urls[$i]['url']);
-								echo "<hr/>";
-							}else{
-								echo $live_urls[$i]['url'];
-								echo "<hr/>";
-							}
+							echo $live_urls[$i]['url'];
+							echo "<hr/>";
 						}
 					}else{
 						echo 'up主还未开播';
@@ -144,19 +138,6 @@
 </div>
 </body>
 <?php
-# 生成短链
-function get_turl($url){
-	$t_url = 'https://api.jike.info/t_cn/' . urlencode($url);
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, $t_url);
-	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE); 
-	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE); 
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	$output = curl_exec($ch);
-	curl_close($ch);
-	return $output;
-}
-
 # 当前开播状态
 function live_status($room_id){
 	error_reporting(E_ALL ^ E_NOTICE);   # 关闭Notice提示

@@ -5,4 +5,8 @@
 
 b站直播间直链获取
 
+2020-6-30更新：
+
+新浪短链接口已失效，移除相关代码。
+
 灵感来源于: [bvtoav](https://github.com/Blokura/bv2av)
