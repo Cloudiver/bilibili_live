@@ -116,9 +116,11 @@
 				if (count($matches)){
 					$live_data = live_status($matches[0]);
 					if (array_key_exists("live_status", $live_data) && $live_data['live_status'] == 1){
-						echo '<h3>房间号：' . $live_data["roomid"] . '</h3>';
-						echo '<h3>up：' . $live_data["uname"] . '</h3>';
-						echo '<h3>标题：' . $live_data["title"] . '</h3>';
+						$live_room_id = $live_data['room_id'];   # 房间号
+						$mid = $live_data['uid'];   # mid
+						$up_name = user_info($mid);
+						echo '<h3>房间号：' . $live_room_id . '</h3>';
+						echo '<h3>up：' . $up_name . '</h3>';
 						echo '<br>';
 						$live_info = geturl('https://api.live.bilibili.com/xlive/web-room/v1/playUrl/playUrl?cid='.$matches[0].'&qn='.$quality.'&platform=web');
 						$live_urls = $live_info['data']['durl'];
@@ -141,8 +143,23 @@
 # 当前开播状态
 function live_status($room_id){
 	error_reporting(E_ALL ^ E_NOTICE);   # 关闭Notice提示
-	$live_room = geturl('https://api.live.bilibili.com/room/v1/RoomStatic/get_room_static_info?room_id='.$room_id);
+	$live_room = geturl('https://api.live.bilibili.com/xlive/web-room/v1/index/getRoomPlayInfo?room_id='.$room_id);
 	return $live_room['data']; # 轮播的状态码为2，也没法看
+}
+
+# 直播间基本信息
+# 需要携带cookie，不弄了
+function live_info($mid){
+	error_reporting(E_ALL ^ E_NOTICE);   # 关闭Notice提示
+	$live_info = geturl('https://api.live.bilibili.com/room/v1/Room/getRoomInfoOld?mid='.$mid);
+	return $live_info['data'];
+}
+
+# up个人信息
+function user_info($mid){
+	error_reporting(E_ALL ^ E_NOTICE);   # 关闭Notice提示
+	$user_info = geturl('https://api.bilibili.com/x/space/acc/info?mid='.$mid);
+	return $user_info['data']['name'];
 }
 
 function geturl($url){
